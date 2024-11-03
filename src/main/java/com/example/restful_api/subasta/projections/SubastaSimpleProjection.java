@@ -6,6 +6,13 @@ import com.example.restful_api.metodo_de_pago.MetodoDePago;
 import com.example.restful_api.persona.Persona;
 import com.example.restful_api.subasta.Subasta;
 
+/**
+ * Proyección simple de la entidad Subasta.
+ * Esta proyección incluye los identificadores de la subasta, persona y método
+ * de pago.
+ * 
+ * @Projection(name = "simple", types = { Subasta.class })
+ */
 @Projection(name = "simple", types = { Subasta.class })
 public interface SubastaSimpleProjection {
     Long getId();
