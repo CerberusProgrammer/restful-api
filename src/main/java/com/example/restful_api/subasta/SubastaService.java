@@ -82,4 +82,23 @@ public class SubastaService {
 
         return subastaRepository.save(subasta);
     }
+
+    public Subasta updateSubasta(Long id, SubastaDTO subastaDTO) {
+        Subasta subasta = subastaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Subasta not found"));
+
+        Persona persona = personaRepository.findById(subastaDTO.getPersonaId())
+                .orElseThrow(() -> new RuntimeException("Persona not found"));
+        MetodoDePago metodoDePago = metodoDePagoRepository.findById(subastaDTO.getMetodoDePagoId())
+                .orElseThrow(() -> new RuntimeException("MetodoDePago not found"));
+
+        subasta.setPersona(persona);
+        subasta.setMetodoDePago(metodoDePago);
+
+        return subastaRepository.save(subasta);
+    }
+
+    public void deleteSubasta(Long id) {
+        subastaRepository.deleteById(id);
+    }
 }
