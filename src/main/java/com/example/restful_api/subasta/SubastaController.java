@@ -1,5 +1,6 @@
 package com.example.restful_api.subasta;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class SubastaController {
      * 
      */
     @GetMapping("/subastas/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public Object getSubasta(@PathVariable Long id, @RequestParam(defaultValue = "simple") String projection) {
         return subastaService.getSubasta(id, projection);
     }
@@ -46,6 +48,7 @@ public class SubastaController {
      * 
      */
     @GetMapping("/subastas")
+    @ResponseStatus(code = HttpStatus.OK)
     public List<?> getAllSubastas(
             @RequestParam(required = false) String personaNombre,
             @RequestParam(required = false) String metodoDePagoTipo,
@@ -57,18 +60,20 @@ public class SubastaController {
     }
 
     @PostMapping("/subastas")
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Subasta createSubasta(@RequestBody SubastaDTO subastaDTO) {
         return subastaService.createSubasta(subastaDTO);
     }
 
     @PutMapping("/subastas/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public Subasta updateSubasta(@PathVariable Long id, @RequestBody SubastaDTO subastaDTO) {
         return subastaService.updateSubasta(id, subastaDTO);
     }
 
     @DeleteMapping("/subastas/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteSubasta(@PathVariable Long id) {
         subastaService.deleteSubasta(id);
     }
-
 }
