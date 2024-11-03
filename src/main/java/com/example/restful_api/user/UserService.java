@@ -29,25 +29,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public List<User> findByParams(UserQueryParams params) {
+    public List<User> findAll(UserQueryParams params) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = cb.createQuery(User.class);
         Root<User> root = query.from(User.class);
 
-        Predicate predicate = cb.conjunction();
-
-        if (params.getName() != null && !params.getName().isEmpty()) {
-            predicate = cb.and(predicate, cb.like(root.get("name"), "%" + params.getName() + "%"));
-        }
-
-        if (params.getEmail() != null && !params.getEmail().isEmpty()) {
-            predicate = cb.and(predicate, cb.like(root.get("email"), "%" + params.getEmail() + "%"));
-        }
-
+        Predicate predicate = params.toPredicate(cb, root);
         query.where(predicate);
 
         return entityManager.createQuery(query).getResultList();
