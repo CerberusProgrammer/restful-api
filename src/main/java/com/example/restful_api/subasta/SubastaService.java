@@ -9,6 +9,8 @@ import com.example.restful_api.persona.Persona;
 import com.example.restful_api.persona.PersonaRepository;
 import com.example.restful_api.subasta.projections.SubastaDetailedProjection;
 import com.example.restful_api.subasta.projections.SubastaSimpleProjection;
+import com.example.restful_api.subasta.repository.SubastaRepository;
+import com.example.restful_api.subasta.repository.SubastaRepositoryCustom;
 import com.example.restful_api.subasta.projections.SubastaMetodoDePagoProjection;
 import com.example.restful_api.subasta.projections.SubastaPersonaProjection;
 

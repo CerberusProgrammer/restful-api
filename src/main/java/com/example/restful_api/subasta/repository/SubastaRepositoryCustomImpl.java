@@ -1,4 +1,4 @@
-package com.example.restful_api.subasta;
+package com.example.restful_api.subasta.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.restful_api.metodo_de_pago.MetodoDePago;
 import com.example.restful_api.persona.Persona;
+import com.example.restful_api.subasta.Subasta;
+import com.example.restful_api.subasta.SubastaFilter;
 
 import java.util.ArrayList;
 import java.util.List;
