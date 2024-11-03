@@ -1,5 +1,6 @@
 package com.example.restful_api.subasta;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.restful_api.metodo_de_pago.MetodoDePago;
@@ -13,6 +14,9 @@ import com.example.restful_api.subasta.projections.SubastaPersonaProjection;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class SubastaService {
@@ -20,6 +24,9 @@ public class SubastaService {
     private SubastaRepository subastaRepository;
     private PersonaRepository personaRepository;
     private MetodoDePagoRepository metodoDePagoRepository;
+
+    @Qualifier("customSubastaRepository")
+    private SubastaRepositoryCustom subastaRepositoryCustom;
 
     public Object getSubasta(Long id, String projection) {
         switch (projection) {
@@ -33,6 +40,31 @@ public class SubastaService {
                 return subastaRepository.findById(id, SubastaPersonaProjection.class);
             default:
                 return subastaRepository.findById(id, Subasta.class);
+        }
+    }
+
+    public List<?> getAllSubastas(SubastaFilter filter, String projection) {
+        List<Subasta> subastas = subastaRepositoryCustom.findByCriteria(filter);
+        switch (projection) {
+            case "simple":
+                return subastas.stream()
+                        .map(subasta -> subastaRepository.findById(subasta.getId(), SubastaSimpleProjection.class))
+                        .collect(Collectors.toList());
+            case "detailed":
+                return subastas.stream()
+                        .map(subasta -> subastaRepository.findById(subasta.getId(), SubastaDetailedProjection.class))
+                        .collect(Collectors.toList());
+            case "metodoDePago":
+                return subastas.stream()
+                        .map(subasta -> subastaRepository.findById(subasta.getId(),
+                                SubastaMetodoDePagoProjection.class))
+                        .collect(Collectors.toList());
+            case "persona":
+                return subastas.stream()
+                        .map(subasta -> subastaRepository.findById(subasta.getId(), SubastaPersonaProjection.class))
+                        .collect(Collectors.toList());
+            default:
+                return subastas;
         }
     }
 
