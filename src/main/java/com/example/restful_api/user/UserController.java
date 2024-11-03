@@ -25,7 +25,7 @@ public class UserController {
         UserQueryParams params = new UserQueryParams();
         params.setName(name);
         params.setEmail(email);
-        return userService.findByParams(params);
+        return userService.findAll(params);
     }
 
     @PostMapping
