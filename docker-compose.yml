@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres-db-new
+    environment:
+      POSTGRES_DB: restful_api_db
+      POSTGRES_USER: restful_user
+      POSTGRES_PASSWORD: restful_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
