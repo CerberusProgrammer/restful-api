@@ -15,4 +15,15 @@ public class PersonaController {
     public Persona createPersona(@RequestBody Persona persona) {
         return personaRepository.save(persona);
     }
+
+    @GetMapping
+    public Iterable<Persona> getAllPersonas() {
+        return personaRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Persona getPersona(@PathVariable Long id) {
+        return personaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Persona not found"));
+    }
 }
