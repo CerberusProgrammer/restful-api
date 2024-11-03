@@ -1,13 +1,14 @@
 package com.example.restful_api.persona;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.AllArgsConstructor;
+
 @RestController
+@AllArgsConstructor
 @RequestMapping("/personas")
 public class PersonaController {
 
-    @Autowired
     private PersonaRepository personaRepository;
 
     @PostMapping
