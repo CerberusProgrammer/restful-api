@@ -60,4 +60,15 @@ public class SubastaController {
     public Subasta createSubasta(@RequestBody SubastaDTO subastaDTO) {
         return subastaService.createSubasta(subastaDTO);
     }
+
+    @PutMapping("/subastas/{id}")
+    public Subasta updateSubasta(@PathVariable Long id, @RequestBody SubastaDTO subastaDTO) {
+        return subastaService.updateSubasta(id, subastaDTO);
+    }
+
+    @DeleteMapping("/subastas/{id}")
+    public void deleteSubasta(@PathVariable Long id) {
+        subastaService.deleteSubasta(id);
+    }
+
 }
